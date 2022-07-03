@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
-    xmlns:th="http://www.thymeleaf.org">
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>게시판 메인페이지</title>
@@ -51,16 +52,41 @@
         flex-direction: row;
         justify-content: space-between;
     }
+
+    .user_menu {
+        width: 100px;
+        height: 40px;
+        margin-top: 5px;
+
+        text-align: center;
+    }
+
+
 </style>
 <body>
     <div class="menu">
-        <div>
-            <a>로그인</a>
+        <div sec:authorize="!isAuthenticated()">
+            <a th:href="@{/board/login}">로그인</a>
         </div>
         <div>
             <a th:href="@{/board/list}">게시판</a>
         </div>
     </div>
+
+
+    <div class="user_menu" sec:authorize="isAuthenticated()">
+        <div class="menu">
+            <div>
+                <a th:href="@{/logout}" method="post">로그아웃</a>
+            </div>
+        </div>
+        <span sec:authentication="name">사용자</span>
+        <span sec:authentication="principal.authorities">권한</span>
+    </div>
+
+    
+
+   
 
     <hr>
     <div class="mypic">

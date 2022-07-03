@@ -28,4 +28,8 @@ public class BoardService {
     public void deleteBoard(Integer id) {
         boardRepository.deleteById(id);
     }
+
+    public Board searchBoardById(String searchKey) {
+        return boardRepository.findByTitleContaining(searchKey);
+    }
 }

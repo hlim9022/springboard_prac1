@@ -1,7 +1,9 @@
 package com.example.boardPrac.controller;
 
 import com.example.boardPrac.entity.Board;
+import com.example.boardPrac.entity.User;
 import com.example.boardPrac.sevice.BoardService;
+import com.example.boardPrac.sevice.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
 
     @GetMapping("/write")
     public String boardWrite() {
@@ -27,19 +30,12 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public String boardList(Model model, String searchKey) {
-
-
-
+    public String boardList(Model model) {
         model.addAttribute("list", boardService.boardList());
-
         return "main";
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "/account/login";
-    }
+
 
     @GetMapping("/view")
     public String boardView(Model model, Integer id) {
