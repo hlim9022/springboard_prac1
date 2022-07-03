@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판 메인페이지</title>
+</head>
+<style>
+    .menu {
+        display: flex;
+        flex-direction: column;
+        width: 150px;
+    }
+
+    .menu div {
+        width: 100px;
+        border: 1px solid black;
+        height: 40px;
+        margin-top: 5px;
+
+        text-align: center;
+    }
+
+    table {
+        border: 1px solid black;
+        border-collapse: collapse;
+        width: 50%;
+        margin: auto;
+        text-align: center;
+
+
+    }
+
+    th {
+        border: 1px solid black;
+        background-color: black;
+        color: white;
+    }
+
+    td {
+        border: 1px solid black;
+        background-color: white;
+        color: black;
+    }
+
+    .portion2 {
+        width: 50%;
+        margin: auto;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+</style>
+<body>
+    <div class="menu">
+        <div>
+            <a>로그인</a>
+        </div>
+        <div>
+            <a th:href="@{/board/list}">게시판</a>
+        </div>
+    </div>
+
+    <hr>
+    <div class="mypic">
+        <h3><span></span></h3>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일자</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="board : ${list}">
+                <td th:text="${board.id}"></td>
+                <td>
+                    <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}"></a>
+                </td>
+<!--                <td th:text="${board.name}"></td>-->
+                <td th:text="${board.currentDate}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="portion2">
+        <form method="get">
+            <select id="searchOption">
+                <option value="name">작성자 이름으로 검색</option>
+                <option value="title">제목으로 검색</option>
+                <option value="id">글번호로 검색</option>
+            </select>
+            <input type="text" placeholder="검색어를 입력하세요">
+            <button type="submit">검색</button>
+        </form>
+        <button th:onclick="location.href = '/board/write'" type="submit">글작성</button>
+    </div>
+</body>
+</html>
